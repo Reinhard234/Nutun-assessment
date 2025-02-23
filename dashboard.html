@@ -1,101 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather R' Us Dashboard</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Urbanist:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <div class="header-text">
-          <div class="logo">Weather R' Us</div>
-          <div class="divider"></div>
-          <div class="current-weather">
-            Currently showing weather summary for
 
-            <span id="city-name" class="clickable">
-              Pretoria
-              <div id="city-dropdown" class="dropdown hidden">
-                <ul id="city-list"></ul>
-              </div>
-            </span>
-            🌍
-          </div>
-        </div>
-        <div class="toggle-container">
-          Light
-          <label class="toggle-switch">
-            <input type="checkbox" id="theme-toggle" />
-            <span class="slider"></span>
-          </label>
-          Dark
-        </div>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather R' Us Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Urbanist:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+</head>
 
-      <div class="section-container">
-        <div class="weather-container">
-          <div class="title">Today</div>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-text">
+        <div class="logo">
+          <img src="assets/logo/logo.svg"></img> Weather R' Us
+        </div>
+        <div class="divider"></div>
+        <div class="current-weather">
+          Currently showing weather summary for
+
+          <span id="city-name" class="clickable">
+            Pretoria
+            <div id="city-dropdown" class="dropdown hidden">
+              <ul id="city-list"></ul>
+            </div>
+          </span>
+          🌍
+        </div>
+      </div>
+      <div class="toggle-container">
+        Light
+        <label class="toggle-switch">
+          <input type="checkbox" id="theme-toggle" />
+          <span class="slider"></span>
+        </label>
+        Dark
+      </div>
+    </header>
+
+    <div class="section-container">
+      <div class="weather-container">
+        <div class="weather-card">
+          <div class="title"> <img id="weather-icon" src="assets/icons/cloudy.svg" alt="Weather Icon">Today</div>
           <div class="temperatures">
-            <span id="temp">10 C</span>
+            <span id="temp">22 °C</span>
             <div class="high-and-low-temps">
-              <span id="temp-min">22</span>
-              <span id="temp-max">21</span>
+              <span id="temp-min">↘ 21 °C</span>
+              <span id="temp-max">↗ 23 °C</span>
             </div>
           </div>
-          <div id="weather-type">Overcast clouds</div>
+          <div id="weather-type"> Overcast clouds</div>
+        </div>
 
+
+        <div class="weather-card">
           <div class="day-and-time">
             <span id="day"></span> <span id="time"></span>
           </div>
 
           <div class="weather-conditions-grid">
             <div class="condition">
-              <div>Humidity</div>
+              <div class="condition-description"><img src="assets/icons/humidity.svg" class="condition-icon"> Humidity
+              </div>
               <div id="humidity"></div>
             </div>
 
             <div class="condition">
-              <div>Wind Speed</div>
+              <div class="condition-description"><img src="assets/icons/wind.svg" class="condition-icon">Wind Speed
+              </div>
               <div id="wind"></div>
             </div>
           </div>
         </div>
+      </div>
 
-        <main>
-          <div class="content-container">
-            <div class="anomolies-container">
-              <div class="calendar">
-                <div class="calendar-header">
-                  <select id="month-select"></select>
-                  <select id="year-select"></select>
-                  <button id="today-button">Today 📅</button>
-                </div>
-                <div class="calendar-grid" id="calendar-grid"></div>
+      <main>
+        <div class="content-container">
+          <div class="anomolies-container">
+            <div class="calendar" id="calendar">
+              <div class="calendar-header">
+                <select id="month-select"></select>
+                <select id="year-select"></select>
+                <button id="today-button">Today 📅</button>
               </div>
+              <div class="calendar-weekdays" id="calendar-weekdays"></div>
+              <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
 
-              <div class="anomaly-selector-container">
-                <div class="selected-date" id="selected-date"></div>
-                <div class="title">Add a weather anomaly</div>
-                <div class="anomaly-row">
-                  <div class="add-anomaly">
-                    <img src="assets/icons/plus.svg" alt="" />
-                  </div>
-                  <div class="anomaly-menu hidden" id="anomaly-menu"></div>
+            <div class="anomaly-selector-container">
+              <div class="selected-date" id="selected-date"></div>
+              <div class="title">Add a weather anomaly</div>
+              <div class="anomaly-row">
+                <div class="add-anomaly">
+                  <img src="assets/icons/plus.svg" alt="" />
                 </div>
+                <div class="anomaly-menu hidden" id="anomaly-menu"></div>
               </div>
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
+  </div>
 
-    <script src="config.js"></script>
-    <script src="js/dashboard-script.js"></script>
-  </body>
+  <script src="config.js"></script>
+  <script src="js/dashboard-script.js"></script>
+</body>
+
 </html>

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cityDropdown: document.getElementById("city-dropdown"),
         cityList: document.getElementById("city-list"),
         calendarGrid: document.getElementById("calendar-grid"),
+        calendarWeekdays: document.getElementById("calendar-weekdays"),
         monthSelect: document.getElementById("month-select"),
         yearSelect: document.getElementById("year-select"),
         addAnomalyBtn: document.querySelector(".add-anomaly"),
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         weatherType: document.getElementById("weather-type"),
         humidity: document.getElementById("humidity"),
         wind: document.getElementById("wind"),
+        weatherIcon: document.getElementById("weather-icon")
     };
 
     // Data
@@ -48,10 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
         elements.anomalyRow.querySelectorAll(".anomaly-display").forEach(el => el.remove());
 
         if (anomalyData[dateKey]) {
-            anomalyData[dateKey].forEach(anomaly => {
+            anomalyData[dateKey].forEach((anomaly, index) => {
                 const anomalyDisplay = document.createElement("div");
                 anomalyDisplay.classList.add("anomaly-display");
                 anomalyDisplay.innerHTML = `${anomaly.icon} ${anomaly.name}`;
+
+                // Create a remove button
+                const removeBtn = document.createElement("span");
+                removeBtn.classList.add("anomaly-remove");
+                removeBtn.innerHTML = "";
+                removeBtn.onclick = () => removeAnomaly(dateKey, index);
+
+                // Append remove button to anomaly display
+                anomalyDisplay.appendChild(removeBtn);
                 elements.anomalyRow.appendChild(anomalyDisplay);
             });
         }
@@ -59,6 +70,21 @@ document.addEventListener("DOMContentLoaded", () => {
         generateCalendar(selectedDate.getFullYear(), selectedDate.getMonth());
         populateAnomalyMenu();
     }
+
+    function removeAnomaly(dateKey, index) {
+        if (anomalyData[dateKey]) {
+            anomalyData[dateKey].splice(index, 1); // Remove anomaly from data
+
+            // If no more anomalies left for this date, delete the key
+            if (anomalyData[dateKey].length === 0) {
+                delete anomalyData[dateKey];
+            }
+
+            updateDisplayedAnomalies(); // Refresh UI
+        }
+    }
+
+
 
     function populateAnomalyMenu() {
         elements.anomalyMenu.innerHTML = "";
@@ -91,14 +117,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generateCalendar(year, month) {
         elements.calendarGrid.innerHTML = "";
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        elements.calendarWeekdays.innerHTML = ""; // Clear previous weekdays
 
+        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        // Populate weekdays row
+        daysOfWeek.forEach(day => {
+            const weekdayElement = document.createElement("div");
+            weekdayElement.classList.add("weekday");
+            weekdayElement.textContent = day;
+            elements.calendarWeekdays.appendChild(weekdayElement);
+        });
+
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayOfMonth = new Date(year, month, 1).getDay(); // Get first weekday
+
+        // Add empty spaces for days before the first day of the month
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            const emptyElement = document.createElement("div");
+            emptyElement.classList.add("day", "empty");
+            elements.calendarGrid.appendChild(emptyElement);
+        }
+
+        // Populate calendar grid with actual days
         for (let day = 1; day <= daysInMonth; day++) {
             const dayElement = document.createElement("div");
             dayElement.classList.add("day");
             dayElement.textContent = day;
-            const dateKey = `${year}-${month + 1}-${day}`;
 
+            const dateKey = `${year}-${month + 1}-${day}`;
             (anomalyData[dateKey] || []).forEach(anomaly => {
                 const anomalyIcon = document.createElement("span");
                 anomalyIcon.classList.add("anomaly-icon");
@@ -122,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
             elements.calendarGrid.appendChild(dayElement);
         }
     }
+
 
     function goToToday() {
         selectedDate = new Date();
@@ -195,10 +243,33 @@ document.addEventListener("DOMContentLoaded", () => {
             elements.weatherType.textContent = data.weather[0].description;
             elements.humidity.textContent = `${data.main.humidity} %`;
             elements.wind.textContent = `${data.wind.speed} km/h`;
+
+            const weatherCondition = data.weather[0].main.toLowerCase();
+            console.log(weatherCondition)
+            updateWeatherIcon(weatherCondition);
         } catch (error) {
             console.error("Error fetching weather data:", error);
         }
     }
+
+    function updateWeatherIcon(condition) {
+        const weatherIcons = {
+            rain: "rainy.svg",
+            clear: "sunny.svg",
+            clouds: "cloudy.svg",
+            wind: "windy.svg",
+            thunderstorm: "thunder.svg"
+        };
+
+        // Get the matching icon or default to "cloudy"
+        const iconSrc = `assets/icons/${weatherIcons[condition] || "cloudy.svg"}`;
+        console.log(iconSrc)
+
+        // Update the icon in the DOM
+        elements.weatherIcon.src = iconSrc;
+        elements.weatherIcon.alt = condition;
+    }
+
 
     // Event Listeners
     elements.themeToggle.addEventListener("change", () => {
