@@ -310,12 +310,6 @@ body {
                 }
             }
 
-            .divider {
-                width: 0.1rem;
-                background-color: rgba(0, 0, 0, 0.3);
-                border-radius: 20px;
-                height: 2rem;
-            }
 
             .current-weather {
                 font-size: 0.9rem;
@@ -323,54 +317,78 @@ body {
             }
         }
 
-        .toggle-container {
+        .divider {
+            width: 1px;
+            background-color: var(--dark-opaque);
+            border-radius: 20px;
+            height: 2rem;
+        }
+
+        .header-right-side {
             display: flex;
-            flex-direction: row;
-            gap: 10px;
+            gap: 20px;
 
-            .toggle-switch {
-                position: relative;
-                display: inline-block;
-                width: 50px;
-                height: 26px;
+            .toggle-container {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
 
-                input {
-                    opacity: 0;
-                    width: 0;
-                    height: 0;
-                }
+                .toggle-switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 50px;
+                    height: 26px;
 
-                .slider {
-                    position: absolute;
-                    cursor: pointer;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: linear-gradient(var(--dark-background-2), var(--dark-background));
-                    transition: 0.2s ease-in-out;
-                    border-radius: 34px;
+                    input {
+                        opacity: 0;
+                        width: 0;
+                        height: 0;
+                    }
 
-                    &::before {
-                        content: "";
+                    .slider {
                         position: absolute;
-                        height: 18px;
-                        width: 18px;
-                        left: 4px;
-                        bottom: 4px;
-                        background-color: var(--white);
-                        transition: 0.4s ease-in-out;
-                        border-radius: 50%;
+                        cursor: pointer;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: linear-gradient(var(--dark-background-2), var(--dark-background));
+                        transition: 0.2s ease-in-out;
+                        border-radius: 34px;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            height: 18px;
+                            width: 18px;
+                            left: 4px;
+                            bottom: 4px;
+                            background-color: var(--white);
+                            transition: 0.4s ease-in-out;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    input:checked+.slider {
+                        background: linear-gradient(var(--light-background-2), var(--light-background));
+
+                        &::before {
+                            transform: translateX(24px);
+                            background-color: var(--dark-background-2);
+                        }
                     }
                 }
+            }
 
-                input:checked+.slider {
-                    background: linear-gradient(var(--light-background-2), var(--light-background));
+            #logout {
+                opacity: 0.6;
+                transition-duration: 0.2s;
+                font-size: 0.9rem;
+                font-weight: 200;
 
-                    &::before {
-                        transform: translateX(24px);
-                        background-color: var(--dark-background-2);
-                    }
+                &:hover {
+                    cursor: pointer;
+                    opacity: 1;
                 }
             }
         }
@@ -390,7 +408,7 @@ body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 10px;
 
             .weather-card {
                 padding: 10px;
@@ -398,6 +416,30 @@ body {
                 width: calc(100% - 20px);
                 box-shadow: inset 0 1px 10px 5px var(--purple-opaque-5);
                 border-radius: 10px;
+
+                .introduction-container {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    text-align: center;
+                    flex-direction: column;
+
+                    .introduction {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 5px;
+                        border-bottom: 1px solid var(--dark-green);
+
+                        #username-display {
+                            font-weight: 600;
+                        }
+                    }
+
+                    .introduction-text {
+                        font-size: 0.95rem;
+                        text-align: left;
+                    }
+                }
 
                 .title {
                     width: 100%;
@@ -626,6 +668,10 @@ body {
                                 height: 15px;
                             }
 
+                            &.rotated img {
+                                transform: rotate(45deg);
+                            }
+
                             &:hover {
                                 /* animation: border-dance 1s infinite linear; */
                                 background-position: left 60px top, right 60px bottom, left bottom 60px, right top 60px;
@@ -678,10 +724,6 @@ body {
                             align-items: center;
                             transition-duration: 0.1s;
                             position: relative;
-
-                            &:hover {
-                                transform: scale(1.1);
-                            }
 
                             .anomaly-remove {
                                 margin-left: 8px;

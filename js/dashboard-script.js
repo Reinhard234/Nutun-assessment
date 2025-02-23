@@ -21,7 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
         weatherType: document.getElementById("weather-type"),
         humidity: document.getElementById("humidity"),
         wind: document.getElementById("wind"),
-        weatherIcon: document.getElementById("weather-icon")
+        weatherIcon: document.getElementById("weather-icon"),
+        logoutButton: document.getElementById("logout"),
+        usernameDisplay: document.getElementById("username-display")
     };
 
     // Data
@@ -39,6 +41,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Selected Date
     let storedDate = JSON.parse(localStorage.getItem("selectedDate"));
     let selectedDate = storedDate ? new Date(storedDate.year, storedDate.month, storedDate.day) : new Date();
+
+    // Login stuff
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (!loggedInUser) {
+        window.location.href = "index.html";
+    } else {
+        elements.usernameDisplay.textContent = loggedInUser;
+    }
+
+    elements.logoutButton.addEventListener("click", () => {
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+    });
 
     // Functions
     const getSelectedDateKey = () => `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${selectedDate.getDate()}`;

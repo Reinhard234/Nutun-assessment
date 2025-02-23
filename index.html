@@ -3,7 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login-style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Urbanist:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="disclaimer">
+        <div class="more-info">
+          <div class="disclaimer-logo">
+            <img src="assets/logo/logo.svg" class="logo" />
+            Weather R' Us
+          </div>
+          <div class="list-item">🌦️ Add and remove weather anomalies</div>
+          <div class="list-item">🌡️ View your current weather</div>
+          <div class="list-item">
+            🌍 View other South African Province weather
+          </div>
+        </div>
+      </div>
+      <div class="form">
+        <div class="company-name">Welcome to Weather R' US</div>
+        <div id="form-title">Login</div>
+        <div id="form-subtext">Please enter your details below</div>
+        <!-- Error & success messages -->
+        <div id="error-message" class="message error"></div>
+        <div id="success-message" class="message success"></div>
+
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <p class="toggle" id="toggle-auth">Don't have an account? Register</p>
+
+        <button id="auth-button">Login</button>
+      </div>
+    </div>
+  </body>
+  <script src="js/login-script.js"></script>
 </html>

@@ -20,7 +20,6 @@
         <div class="divider"></div>
         <div class="current-weather">
           Currently showing weather summary for
-
           <span id="city-name" class="clickable">
             Pretoria
             <div id="city-dropdown" class="dropdown hidden">
@@ -30,18 +29,28 @@
           🌍
         </div>
       </div>
-      <div class="toggle-container">
-        Light
-        <label class="toggle-switch">
-          <input type="checkbox" id="theme-toggle" />
-          <span class="slider"></span>
-        </label>
-        Dark
+      <div class="header-right-side">
+        <div class="toggle-container">
+          Light
+          <label class="toggle-switch">
+            <input type="checkbox" id="theme-toggle" />
+            <span class="slider"></span>
+          </label>
+          Dark
+        </div>
+        <div class="divider"></div>
+        <div id="logout">Log out</div>
       </div>
     </header>
 
     <div class="section-container">
       <div class="weather-container">
+        <div class="weather-card">
+          <div class="introduction-container">
+           <div class="introduction">Hi <span id="username-display">Test</span></div> 
+            <div class="introduction-text">Below is a summary of your weather</div>
+          </div>
+        </div>
         <div class="weather-card">
           <div class="title"> <img id="weather-icon" src="assets/icons/cloudy.svg" alt="Weather Icon">Today</div>
           <div class="temperatures">
