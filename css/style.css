@@ -40,7 +40,6 @@ body {
     line-height: 1.6;
     background: linear-gradient(var(--light-background-2),
             var(--light-background));
-    background-color: wheat;
     height: calc(100vh - var(--body-padding) * 2);
     background-repeat: no-repeat;
 }
