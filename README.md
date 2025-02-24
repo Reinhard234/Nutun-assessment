@@ -17,6 +17,7 @@ Weather R' US is a **vanilla JavaScript** application that provides real-time we
 │── css/                  # Pure CSS styles (no preprocessor used)
 │── js/                   # JavaScript functionality
 │── index.html            # Main application file
+│── dashboard.html        # Dashboard file
 │── config.example.js     # Example config file for API keys
 ```
 
@@ -43,7 +44,7 @@ Simply open the `index.html` file in your browser, and you’re good to go!
 
 - **HTML5**
 - **CSS3** (Native CSS Nesting, No Preprocessors)
-- **JavaScript (ES6+)**
+- **JavaScript**
 - **Local Storage for authentication**
 
 ## Notes
