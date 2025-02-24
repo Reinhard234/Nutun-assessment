@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weather R' Us Dashboard</title>
+  <title>Anomaly Dashboard</title>
   <link rel="stylesheet" href="css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Urbanist:wght@400;600;700&display=swap"
     rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
@@ -39,7 +40,7 @@
           Dark
         </div>
         <div class="divider"></div>
-        <div id="logout">Log out</div>
+        <div id="logout">Log out <img class="icon" src="assets/icons/logout.svg" alt=""></div>
       </div>
     </header>
 
@@ -48,7 +49,7 @@
         <div class="weather-card">
           <div class="introduction-container">
            <div class="introduction">Hi <span id="username-display">Test</span></div> 
-            <div class="introduction-text">Below is a summary of your weather</div>
+            <div class="introduction-text">Below is a weather summary for you</div>
           </div>
         </div>
         <div class="weather-card">
@@ -87,7 +88,7 @@
 
       <main>
         <div class="content-container">
-          <div class="anomolies-container">
+          <div class="anomalies-container">
             <div class="calendar" id="calendar">
               <div class="calendar-header">
                 <select id="month-select"></select>
@@ -104,6 +105,7 @@
               <div class="anomaly-row">
                 <div class="add-anomaly">
                   <img src="assets/icons/plus.svg" alt="" />
+                  <div class="text">Add anomaly</div>
                 </div>
                 <div class="anomaly-menu hidden" id="anomaly-menu"></div>
               </div>

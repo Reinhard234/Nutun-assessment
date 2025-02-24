@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
         usernameDisplay: document.getElementById("username-display")
     };
 
-    // Data
     const cities = ["Pretoria", "Cape Town", "Johannesburg", "Durban", "Bloemfontein", "Port Elizabeth", "East London"];
     const anomalies = [
         { name: "Heavy Rain", icon: "🌧️" },
@@ -38,13 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     let anomalyData = JSON.parse(localStorage.getItem("anomalyData")) || {};
 
-    // Selected Date
     let storedDate = JSON.parse(localStorage.getItem("selectedDate"));
     let selectedDate = storedDate ? new Date(storedDate.year, storedDate.month, storedDate.day) : new Date();
 
-    // Login stuff
     const loggedInUser = localStorage.getItem("loggedInUser");
-
+    //redirect to login page if not logged in
     if (!loggedInUser) {
         window.location.href = "index.html";
     } else {
@@ -100,8 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
-
     function populateAnomalyMenu() {
         elements.anomalyMenu.innerHTML = "";
         const dateKey = getSelectedDateKey();
@@ -133,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function generateCalendar(year, month) {
         elements.calendarGrid.innerHTML = "";
-        elements.calendarWeekdays.innerHTML = ""; // Clear previous weekdays
+        elements.calendarWeekdays.innerHTML = "";
 
         const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -146,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const firstDayOfMonth = new Date(year, month, 1).getDay(); // Get first weekday
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
 
         // Add empty spaces for days before the first day of the month
         for (let i = 0; i < firstDayOfMonth; i++) {
@@ -238,7 +233,8 @@ document.addEventListener("DOMContentLoaded", () => {
             li.textContent = city;
             li.classList.add("city-item");
             li.addEventListener("click", () => {
-                elements.cityName.textContent = city;
+                const textNode = elements.cityName.childNodes[0];
+                textNode.nodeValue = city;
                 fetchWeather(city);
                 elements.cityDropdown.classList.add("hidden");
             });
@@ -277,11 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
             thunderstorm: "thunder.svg"
         };
 
-        // Get the matching icon or default to "cloudy"
         const iconSrc = `assets/icons/${weatherIcons[condition] || "cloudy.svg"}`;
-        console.log(iconSrc)
-
-        // Update the icon in the DOM
         elements.weatherIcon.src = iconSrc;
         elements.weatherIcon.alt = condition;
     }
@@ -293,7 +285,10 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("theme", elements.themeToggle.checked ? "dark" : "light");
     });
 
-    elements.addAnomalyBtn.addEventListener("click", () => elements.anomalyMenu.classList.toggle("hidden"));
+    elements.addAnomalyBtn.addEventListener("click", () => {
+        elements.anomalyMenu.classList.toggle("hidden");
+        elements.addAnomalyBtn.classList.toggle("selected");
+    });
     elements.monthSelect.addEventListener("change", () => generateCalendar(selectedDate.getFullYear(), parseInt(elements.monthSelect.value)));
     elements.yearSelect.addEventListener("change", () => generateCalendar(parseInt(elements.yearSelect.value), selectedDate.getMonth()));
     elements.todayButton?.addEventListener("click", goToToday);

@@ -1,29 +1,20 @@
-const formTitle = document.getElementById("form-title");
-const formSubtext = document.getElementById("form-subtext");
-const usernameInput = document.getElementById("username");
-const passwordInput = document.getElementById("password");
-const authButton = document.getElementById("auth-button");
-const toggleAuth = document.getElementById("toggle-auth");
-const errorMessage = document.getElementById("error-message");
-const successMessage = document.getElementById("success-message");
+// DOM Elements
+const elements = {
+    formTitle: document.getElementById("form-title"),
+    formSubtext: document.getElementById("form-subtext"),
+    usernameInput: document.getElementById("username"),
+    passwordInput: document.getElementById("password"),
+    authButton: document.getElementById("auth-button"),
+    toggleAuth: document.getElementById("toggle-auth"),
+    errorMessage: document.getElementById("error-message"),
+    successMessage: document.getElementById("success-message")
+};
 
 let isLogin = true;
 
-// Auto redirect if logged in
+// redirect if logged in
 if (localStorage.getItem("loggedInUser")) {
     window.location.href = "dashboard.html";
-}
-
-function showMessage(type, message) {
-    if (type === "error") {
-        errorMessage.textContent = message;
-        errorMessage.style.display = "block";
-        successMessage.style.display = "none";
-    } else {
-        successMessage.textContent = message;
-        successMessage.style.display = "block";
-        errorMessage.style.display = "none";
-    }
 }
 
 function clearMessages() {
@@ -33,18 +24,18 @@ function clearMessages() {
 
 function switchMode() {
     isLogin = !isLogin;
-    formTitle.textContent = isLogin ? "Login" : "Register";
-    formSubtext.textContent = isLogin ? "Please enter your details below" : "Please register your account below";
-    authButton.textContent = isLogin ? "Login" : "Register";
-    toggleAuth.textContent = isLogin
+    elements.formTitle.textContent = isLogin ? "Login" : "Register";
+    elements.formSubtext.textContent = isLogin ? "Please enter your details below" : "Please register your account below";
+    elements.authButton.textContent = isLogin ? "Login" : "Register";
+    elements.toggleAuth.textContent = isLogin
         ? "Don't have an account? Register"
         : "Already have an account? Login";
-    clearMessages(); // Clear messages when switching modes
+    clearMessages();
 }
 
 function authenticate() {
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
+    const username = elements.usernameInput.value.trim();
+    const password = elements.passwordInput.value.trim();
 
     if (!username || !password) {
         showMessage("error", "Please enter a username and password.");
@@ -52,7 +43,6 @@ function authenticate() {
     }
 
     if (isLogin) {
-        // Login logic
         const storedUser = JSON.parse(localStorage.getItem(username));
         if (storedUser && storedUser.password === password) {
             localStorage.setItem("loggedInUser", username);
@@ -61,16 +51,29 @@ function authenticate() {
             showMessage("error", "Invalid username or password.");
         }
     } else {
-        // Register logic
         if (localStorage.getItem(username)) {
             showMessage("error", "Username already exists!");
         } else {
             localStorage.setItem(username, JSON.stringify({ password }));
             showMessage("success", "Registration successful! Please log in.");
-            setTimeout(switchMode, 1500); // Auto switch to login after success
+            setTimeout(switchMode, 1500);
         }
     }
 }
 
-toggleAuth.addEventListener("click", switchMode);
-authButton.addEventListener("click", authenticate);
+function showMessage(type, message) {
+    if (type === "error") {
+        elements.errorMessage.textContent = message;
+        elements.errorMessage.style.display = "block";
+        elements.successMessage.style.display = "none";
+    } else {
+        elements.successMessage.textContent = message;
+        elements.successMessage.style.display = "block";
+        elements.errorMessage.style.display = "none";
+    }
+}
+
+// event listeners
+
+elements.toggleAuth.addEventListener("click", switchMode);
+elements.authButton.addEventListener("click", authenticate);
