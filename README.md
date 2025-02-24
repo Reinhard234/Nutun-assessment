@@ -57,5 +57,5 @@ This project is open-source under the **MIT License**. Feel free to use and modi
 
 ---
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by Reinhard Stoop
 
